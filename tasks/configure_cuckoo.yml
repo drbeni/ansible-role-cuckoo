@@ -1,0 +1,55 @@
+---
+
+- set_fact: 
+    cuckoo_conf_dir: "{{ cuckoo_user_home }}/.cuckoo/conf"
+
+- name: Deploy cuckoo.conf
+  template:
+    src: conf/cuckoo.conf.j2
+    dest: "{{ cuckoo_conf_dir }}/cuckoo.conf"
+    owner: "{{ cuckoo_user }}"
+    group: "{{ cuckoo_user }}"
+    mode: 0755
+  tags:
+    - cuckoo
+
+- name: Deploy kvm.conf
+  template:
+    src: conf/kvm.conf.j2
+    dest: "{{ cuckoo_conf_dir }}/kvm.conf"
+    owner: "{{ cuckoo_user }}"
+    group: "{{ cuckoo_user }}"
+    mode: 0755
+  tags:
+    - cuckoo    
+
+- name: Deploy memory.conf
+  template:
+    src: conf/memory.conf.j2
+    dest: "{{ cuckoo_conf_dir }}/memory.conf"
+    owner: "{{ cuckoo_user }}"
+    group: "{{ cuckoo_user }}"
+    mode: 0755
+  tags:
+    - cuckoo
+
+- name: Deploy reporting.conf
+  template:
+    src: conf/reporting.conf.j2
+    dest: "{{ cuckoo_conf_dir }}/reporting.conf"
+    owner: "{{ cuckoo_user }}"
+    group: "{{ cuckoo_user }}"
+    mode: 0755
+  tags:
+    - cuckoo
+
+
+- name: Deploy supervisord.conf
+  template:
+    src: supervisord.conf.j2
+    dest: "{{ cuckoo_user_home }}/.cuckoo/supervisord.conf"
+    owner: "{{ cuckoo_user }}"
+    group: "{{ cuckoo_user }}"
+    mode: 0755
+  tags:
+    - cuckoo            

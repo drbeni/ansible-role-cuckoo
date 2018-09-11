@@ -1,0 +1,13 @@
+galaxy_info:
+  author: Beni Urech
+  description: Installs Cuckoo on an Ubuntu 18.04
+  license: GPLv3
+  min_ansible_version: 2.5
+  platforms:
+  - name: Ubuntu
+    versions:
+    - bionic
+  galaxy_tags:
+    - malware
+    - sandbox
+    - security

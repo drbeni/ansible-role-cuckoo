@@ -1,0 +1,26 @@
+---
+
+- set_fact: 
+    cuckoo_binary: "{{cuckoo_virtualenv}}/bin/cuckoo"
+    cuckoo_cwd_dir: "{{cuckoo_user_home}}/.cuckoo"
+
+- name: Create Cuckoo CWD folder
+  command: "{{cuckoo_binary}} --cwd {{cuckoo_cwd_dir}} -d"
+  args:
+    chdir: "{{cuckoo_user_home}}"
+    creates: "{{cuckoo_cwd_dir}}"
+  tags: 
+    - cuckoo
+
+- name: Get cuckoo community signatures
+  command: "{{cuckoo_binary}} --cwd {{cuckoo_cwd_dir}} community"
+  tags:
+  - cuckoo    
+
+- name: Chown CWD to cuckoo user
+  file:
+    dest: "{{cuckoo_cwd_dir}}"
+    owner: "{{cuckoo_user}}"
+    recurse: yes
+  tags: 
+    - chown

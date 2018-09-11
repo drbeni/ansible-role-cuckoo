@@ -1,0 +1,51 @@
+---
+# Packages required by cuckoo according to 
+# https://cuckoo.sh/docs/installation/host/requirements.html#installing-python-libraries-on-ubuntu-debian-based-distributions
+cuckoo_required_packages:
+  - build-essential
+  - libffi-dev
+  - libfuzzy-dev
+  - libjpeg-dev  
+  - libssl-dev  
+  - mongodb
+  - python
+  - python-pip
+  - python2.7-dev
+  - python-setuptools
+  - python-virtualenv
+  - swig
+  - zlib1g-dev  
+
+cuckoo_kvm_packages:
+  - bridge-utils  
+  - libvirt-bin 
+  - python-libvirt
+  - qemu-kvm 
+  - ubuntu-vm-builder   
+
+cuckoo_tcpdump_packages:
+  - tcpdump
+  - libcap2-bin
+  - apparmor-utils
+
+cuckoo_volatility_packages:
+  - swig
+
+cuckoo_pip_packages:
+  - distorm3
+  - gunicorn
+  - m2crypto
+  - pydeep
+  - pycrypto
+  - psycopg2-binary
+  - supervisor
+  - yara-python
+
+# Some default settings for cuckoo user
+cuckoo_user_uid: 1234
+cuckoo_user_shell: "/bin/bash"
+cuckoo_user: cuckoo
+cuckoo_user_home: /home/cuckoo
+cuckoo_virtualenv: /home/cuckoo/venv
+
+kvm_interface_name: virbr0

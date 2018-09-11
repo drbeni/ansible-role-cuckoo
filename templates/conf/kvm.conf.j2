@@ -1,0 +1,36 @@
+[kvm]
+# Specify a comma-separated list of available machines to be used. For each
+# specified ID you have to define a dedicated section containing the details
+# on the respective machine. (E.g. cuckoo1,cuckoo2,cuckoo3)
+machines = {% for vm in cuckoo_sandbox_vms %}{{ vm.name }}, {% endfor %}
+
+
+
+# Specify the name of the default network interface that will be used
+# when dumping network traffic with tcpdump.
+# Example (virbr0 is the interface name):
+interface = {{ kvm_interface_name }}
+
+
+
+{% for vm in cuckoo_sandbox_vms %}
+[{{ vm.name }}]
+label = {{ vm.name }}
+
+platform = {{ vm.platform }}
+
+ip = {{ vm.ip }}
+
+snapshot = {{ vm.snapshot }}
+
+interface = {{ vm.interface }}
+
+resultserver_ip = 
+resultserver_port = 
+
+tags = {{ vm.tags }}
+
+osprofile = {{ vm.osprofile }}
+
+
+{% endfor %}

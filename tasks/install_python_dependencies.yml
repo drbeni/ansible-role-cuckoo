@@ -1,0 +1,40 @@
+---
+
+- name: Install Volatility
+  pip:
+    name: git+https://github.com/volatilityfoundation/volatility.git
+    virtualenv: "{{cuckoo_virtualenv}}"
+    virtualenv_python: python2.7
+    virtualenv_site_packages: yes
+  tags:
+    - volatility
+    - pip
+
+- name: Install python dependencies
+  pip:
+    name: "{{item}}"
+    virtualenv: "{{cuckoo_virtualenv}}"
+    virtualenv_python: python2.7
+    virtualenv_site_packages: yes
+  with_items:
+    - "{{cuckoo_pip_packages}}"
+  tags:
+    - pip
+
+- name: Install cuckoo
+  pip:
+    name: cuckoo
+    virtualenv: "{{cuckoo_virtualenv}}"
+    virtualenv_python: python2.7
+    virtualenv_site_packages: yes
+  tags:
+    - pip    
+    - cuckoo
+
+- name: Chown virtualenv to cuckoo user
+  file:
+    dest: "{{cuckoo_virtualenv}}"
+    owner: "{{cuckoo_user}}"
+    recurse: yes
+  tags: 
+    - chown

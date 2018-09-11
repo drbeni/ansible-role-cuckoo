@@ -1,0 +1,21 @@
+---
+
+- name: Add cuckoo user
+  user:
+    name: "{{cuckoo_user}}"
+    password: "{{cuckoo_user_password}}"
+    uid: "{{cuckoo_user_uid}}"
+    shell: "{{cuckoo_user_shell}}"
+    home: "{{cuckoo_user_home}}"
+  tags:
+    - user
+
+- name: Add cuckoo user to libvirt and kvm group
+  user:
+    name: "{{cuckoo_user}}"
+    groups: 
+      - libvirt
+      - kvm
+    append: yes
+  tags:
+    - user

@@ -1,0 +1,58 @@
+[supervisord]
+logfile = {{ cuckoo_user_home }}/.cuckoo/supervisord/log.log
+pidfile = {{ cuckoo_user_home }}/.cuckoo/supervisord/pidfile
+user = {{ cuckoo_user }}
+
+[supervisorctl]
+serverurl = unix://{{ cuckoo_user_home }}/.cuckoo/supervisord/unix.sock
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[unix_http_server]
+file = {{ cuckoo_user_home }}/.cuckoo/supervisord/unix.sock
+
+[program:cuckoo-daemon]
+command = {{ cuckoo_virtualenv }}/bin/cuckoo -d -m 10000
+user = cuckoo
+startsecs = 30
+autorestart = true
+
+#[program:cuckoo-process]
+#command = {{ cuckoo_virtualenv }}/bin/cuckoo process p%(process_num)d
+#process_name = cuckoo-process_%(process_num)d
+#numprocs = 2
+#user = cuckoo
+#autorestart = true
+
+[program:cuckoo-web]
+command = {{ cuckoo_virtualenv }}/bin/gunicorn --bind 0.0.0.0:8080 --timeout 600 --workers 2 web.wsgi
+environment=CUCKOO_APP=web
+directory={{ cuckoo_virtualenv }}/lib/python2.7/site-packages/cuckoo/web
+redirect_stderr=true
+process_name = cuckoo-web
+numprocs = 1
+user = cuckoo
+autorestart = true
+startsecs = 10
+
+[program:cuckoo-api]
+command = {{ cuckoo_virtualenv }}/bin/gunicorn --bind 0.0.0.0:8081 --timeout 600 --workers 2 api:app
+environment=CUCKOO_APP=api
+directory={{ cuckoo_virtualenv }}/lib/python2.7/site-packages/cuckoo/apps
+redirect_stderr=true
+process_name = cuckoo-api
+numprocs = 1
+user = cuckoo
+autorestart = true
+startsecs = 10
+
+[group:cuckoo]
+programs = cuckoo-daemon, cuckoo-web, cuckoo-api
+
+#[program:distributed]
+#command = {{ cuckoo_virtualenv }}/bin/python -m cuckoo.distributed.worker
+#user = cuckoo
+#autostart = false
+#autorestart = true
+#environment = CUCKOO_APP="worker",CUCKOO_CWD="/home/cuckoo/.cuckoo"
