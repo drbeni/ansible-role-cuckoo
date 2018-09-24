@@ -1,0 +1,11 @@
+---
+
+- name: Activate default network if needed
+  shell: "/usr/bin/virsh net-info default | grep Active | grep -q no && /usr/bin/virsh net-start default || true"
+  tags: 
+    - kvm
+
+- name: Autostart default network
+  command: "/usr/bin/virsh net-autostart default"
+  tags: 
+    - kvm    

@@ -19,3 +19,13 @@
     append: yes
   tags:
     - user
+
+- name: Add deployment user to libvirt and kvm group for VM management
+  user:
+    name: "{{ansible_user}}"
+    groups: 
+      - libvirt
+      - kvm
+    append: yes
+  tags:
+    - user

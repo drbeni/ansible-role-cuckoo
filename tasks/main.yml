@@ -3,5 +3,6 @@
 - include_tasks: install_ubuntu_dependencies.yml
 - include_tasks: create_user.yml
 - include_tasks: install_python_dependencies.yml
+- include_tasks: configure_kvm.yml
 - include_tasks: initialize_cuckoo.yml
 - include_tasks: configure_cuckoo.yml
