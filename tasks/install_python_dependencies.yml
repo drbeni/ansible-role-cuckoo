@@ -12,12 +12,10 @@
 
 - name: Install python dependencies
   pip:
-    name: "{{item}}"
+    name: "{{cuckoo_pip_packages}}"
     virtualenv: "{{cuckoo_virtualenv}}"
     virtualenv_python: python2.7
     virtualenv_site_packages: yes
-  with_items:
-    - "{{cuckoo_pip_packages}}"
   tags:
     - pip
 

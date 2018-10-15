@@ -24,27 +24,21 @@
 - name: Install Cuckoo dependencies
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
-    - "{{cuckoo_required_packages}}"
+    pkg: "{{cuckoo_required_packages}}"
   tags:
     - requirements
 
 - name: Install KVM
   apt:
     state: present
-    pkg: "{{item}}"
-  with_items:
-    - "{{cuckoo_kvm_packages}}"
+    pkg: "{{cuckoo_kvm_packages}}"
   tags:
     - kvm
 
 - name: Install tcpdump
   apt: 
     state: present    
-    pkg: "{{item}}"
-  with_items:
-    - "{{cuckoo_tcpdump_packages}}"
+    pkg: "{{cuckoo_tcpdump_packages}}"
   tags:
     - tcpdump
 
