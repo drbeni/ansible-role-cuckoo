@@ -23,9 +23,15 @@ html = no
 pdf = no
 
 [misp]
+{% if misp_url is defined %}
+enabled = yes
+url = {{ misp_url }}
+apikey = {{ misp_api_key }}
+{% else %}
 enabled = no
 url = 
 apikey = 
+{% endif %}
 
 # The various modes describe which information should be submitted to MISP,
 # separated by whitespace. Available modes: maldoc ipaddr hashes url.
@@ -69,6 +75,11 @@ index_time_pattern = yearly
 cuckoo_node = 
 
 [moloch]
+{% if moloch_host is defined %}
+enabled = yes
+host = {{ moloch_host }}
+insecure = {{ moloch_insecure }}
+{% else %}
 enabled = no
 # If the Moloch web interface is hosted on a different IP address than the
 # Cuckoo Web Interface then you'll want to override the IP address here.
@@ -76,6 +87,8 @@ host =
 # If you wish to run Moloch in http (insecure) versus https (secure) mode,
 # set insecure to yes.
 insecure = no
+{% endif %}
+
 
 # Following are various configurable settings. When in use of a recent version
 # of Moloch there is no need to change any of the following settings as they

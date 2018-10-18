@@ -49,3 +49,5 @@ cuckoo_user_home: /home/cuckoo
 cuckoo_virtualenv: /home/cuckoo/venv
 
 kvm_interface_name: virbr0
+
+moloch_insecure: no
