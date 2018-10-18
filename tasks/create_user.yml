@@ -10,6 +10,16 @@
   tags:
     - user
 
+- name: Add authorized keys cuckoo user
+  authorized_key:
+    user: "{{cuckoo_user}}"
+    key: "{{lookup('file', item)}}"
+  with_items:
+    - "{{cuckoo_public_keys}}"
+  when: cuckoo_public_keys is defined
+  tags:
+    - user    
+
 - name: Add cuckoo user to libvirt and kvm group
   user:
     name: "{{cuckoo_user}}"
@@ -27,5 +37,6 @@
       - libvirt
       - kvm
     append: yes
+  when: ansible_user is defined
   tags:
     - user
